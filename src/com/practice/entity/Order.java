@@ -19,7 +19,7 @@ public class Order {
 		this.product = product;
 		//Checks if product are available or not if not throws exception
 		if( quantity < 1 || quantity > this.product.getQuantity()){
-			throw new InvalidOrderException();
+			throw new InvalidOrderException(quantity, this.product);
 		}
 		else{
 			this.quantity = quantity;
@@ -37,24 +37,8 @@ public class Order {
 		return orderId;
 	}
 
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
 	public Product getProduct() {
 		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
 	}
 
 	public int getQuantity() {
@@ -64,7 +48,7 @@ public class Order {
 	//Checks if product are available or not if not throws exception
 	public void setQuantity(int quantity) throws InvalidOrderException, StockUnavailableException {
 		if( quantity < 1 || quantity > this.product.getQuantity()){
-			throw new InvalidOrderException();
+			throw new InvalidOrderException(quantity, this.product);
 		}
 		else{
 			this.quantity = quantity;

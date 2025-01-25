@@ -58,7 +58,7 @@ public class Main {
             sc1.addOrder(order2);
 
         } catch (InvalidOrderException | StockUnavailableException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
 
         try {
