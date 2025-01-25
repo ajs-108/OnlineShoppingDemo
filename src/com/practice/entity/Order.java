@@ -12,17 +12,18 @@ public class Order {
 	private int quantity;
 
 	//Constructor to initialize an order.
-	public Order(int orderId, Customer customer, Product product, int quantity) throws InvalidOrderException {
+	public Order(int orderId, Customer customer, Product product, int quantity) throws InvalidOrderException, StockUnavailableException {
 		super();
 		this.orderId = orderId;
 		this.customer = customer;
 		this.product = product;
 		//Checks if product are available or not if not throws exception
 		if( quantity < 1 || quantity > this.product.getQuantity()){
-			throw new InvalidOrderException("Quantity of product is insufficient.");
+			throw new InvalidOrderException();
 		}
 		else{
 			this.quantity = quantity;
+			product.reduceStock(quantity);
 		}
 	}
 
@@ -63,7 +64,7 @@ public class Order {
 	//Checks if product are available or not if not throws exception
 	public void setQuantity(int quantity) throws InvalidOrderException, StockUnavailableException {
 		if( quantity < 1 || quantity > this.product.getQuantity()){
-			throw new InvalidOrderException("Quantity of product is invalid.");
+			throw new InvalidOrderException();
 		}
 		else{
 			this.quantity = quantity;

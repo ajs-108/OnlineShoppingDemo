@@ -55,7 +55,7 @@ public class Product {
 	public void reduceStock(int quantity) throws StockUnavailableException {
 		
 		if(this.quantity <= 0) {
-			throw new StockUnavailableException("Stock are insufficient.");
+			throw new StockUnavailableException();
 		}
 		else {
 			this.quantity -= quantity;

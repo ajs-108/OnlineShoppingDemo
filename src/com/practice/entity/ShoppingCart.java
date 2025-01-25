@@ -24,17 +24,25 @@ public class ShoppingCart {
     public void addOrder(Order order) throws StockUnavailableException {
 
         this.orderItems.add(order);
-        order.getProduct().reduceStock(order.getQuantity());
         System.out.printf("Order%d placed successfully.%n", order.getOrderId());
     }
 
     //Method removeOrder() to remove an order; throws OrderNotFoundException if the order does not exist.
     public void removeOrder(int orderId) throws OrderNotFoundException {
 
-        for (Order order : this.orderItems) {
-            System.out.println(order.getOrderId());
-            if (order.getOrderId() == orderId) {
-                orderItems.remove(order);
+        if(orderItems.isEmpty()) {
+            throw new OrderNotFoundException("Cart is empty.");
+        }
+        for (int i = 0; i <= orderItems.size(); i++) {
+
+            if (i != orderItems.size()) {
+                if (orderItems.get(i).getOrderId() == orderId) {
+                    orderItems.remove(i);
+                    System.out.println("Order removed successfully.");
+                    break;
+                }
+            } else {
+                throw new OrderNotFoundException("Order doesn't exist in the shopping cart.");
             }
         }
     }
@@ -61,8 +69,13 @@ public class ShoppingCart {
 
     //Method to view total price and check out(clear out the cart)
     public void checkout() {
-        System.out.println("\nSuccessfully checked out.");
-        System.out.println("Your total Price is: " + totalPrice());
+        System.out.print("\nTotal Bill:");
+        for (Order order : orderItems) {
+            System.out.print("\nProduct: " + order.getProduct().getName());
+            System.out.print("\nQuantity: " + order.getQuantity());
+            System.out.print("\nPrice: " + order.calculateTotal());
+        }
+        System.out.println("\nYour total Price is: " + totalPrice());
         orderItems.clear();
     }
 }
